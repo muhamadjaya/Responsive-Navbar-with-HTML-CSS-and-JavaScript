@@ -1,0 +1,176 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: sans-serif;
+    overflow-x: hidden; /* jika ada yg bablas ke kanan (karena ada menu yg diumpetin) maka dihilangkan */
+
+}
+
+
+/* Navbar */
+nav {
+    display: flex;
+    background-color: rgb(153, 71, 230);
+    justify-content: space-around;
+    color: rgb(236, 229, 241);
+
+    /* untuk membuat jarak atas dan bawah pada navbar
+    dapat menggunakan padding dan height */
+    /* Jika menggunakan padding yg sama maka content otomatis berada ditengah,
+    tetapi jika menggunakan height maka harus menambahkan align-items: center; (jika meggunakan flexbox)
+    untuk menengahkan items pada navbar tersebut */
+
+    /* padding: 20px 0; */
+    height: 50px;
+    align-items: center;
+}
+
+nav .logo {    
+    font-family: 'Pacifico', cursive;
+    letter-spacing: 3px;
+}
+
+
+/* Yg dibuat flex adalah parentnya yaitu ul dan 
+childnya adalah li */
+nav ul {
+    display: flex;
+    list-style: none;
+    width: 40%;
+    justify-content: space-between;
+    font-family: 'Montserrat', sans-serif;
+}
+
+
+nav ul li a {
+    color: rgb(236, 229, 241);
+    text-decoration: none;
+    font-size: 0.8em;
+}
+
+nav ul li a:hover {
+    color: rgb(194, 130, 240);
+}
+
+
+
+/* Hamburger Menu */
+.menu-toggle {
+    display: none; /* ketika tampilan desktop maka menu toggle hilang */
+    flex-direction: column;
+    height: 20px;
+    justify-content: space-between;
+    position: relative;
+}
+
+.menu-toggle input {
+    position: absolute;
+    /* top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0; */
+    width: 40px;
+    height: 25px;
+    left: -5.75px;
+    top: -2px;
+    opacity: 0;
+    cursor: pointer;
+
+    z-index: 2; /* supaya berada di depan hamburger menu */
+}
+
+.menu-toggle span {
+    display: block;
+    width: 28px;
+    height: 3px;
+    background-color: rgb(236, 229, 241);
+    border-radius: 3px;
+    transition: all 0.5s;
+}
+
+
+
+/* Hamburger Menu Animation */
+
+/* seleksi child element dari menu-toggle menggunakan ::nth-child */
+.menu-toggle span:nth-child(2) { 
+    transform-origin: 0 0; /* memindahkan poros ke ujung (atas kiri [sumbu x = 0 dan sumbu y=0]) */
+}
+
+.menu-toggle span:nth-child(4) { 
+    transform-origin: 0 100%; /* memindahkan poros ke ujung (bawah kiri [sumbu x = 0 dan sumbu y=100]) */
+}
+
+
+/* tanda ~ menunjukkan siblings */
+.menu-toggle input:checked ~ span:nth-child(2) {   /* ketika input dicheck cari saudaranya yang merupakan anak ke 2 */
+    background-color: white;
+    transform: rotate(45deg) translate(-1px, -1px);
+    /* translate = memindahkan posisi garis berdasarkan sumbu x dan y */
+}
+
+.menu-toggle input:checked ~ span:nth-child(4) {   /* ketika input dicheck cari saudaranya yang merupakan anak ke 4 */
+    background-color: white;
+    transform: rotate(-45deg) translate(-1px, 0);
+}
+
+.menu-toggle input:checked ~ span:nth-child(3) {   
+    
+    transform: scale(0);  /* ketika input dicheck maka span child ke 3 akan menyusut */
+    opacity: 0;
+}
+
+
+
+
+/* Responsive Breakpoints */
+
+/* Ukuran Tablet */
+@media screen and (max-width: 768px) {
+    nav ul {
+        width: 50%;
+    }
+}
+
+
+/* Ukuran Mobile */
+@media screen and (max-width: 576px) {
+    .menu-toggle {
+        display: flex;
+    }
+
+    nav ul {
+        /* ketika berada di ukuran mobile maka posisi menu nya berubah */
+        position: absolute;
+        right: 0;
+        top: 0;
+        width: 80%;
+        height: 100vh; /* supaya tingginya memenuhi tampilan layar */
+        flex-direction: column;  /* display: flex; sudah ada di atas jadi tidak perlu ditulis ulang */
+        background-color: rgb(153, 71, 230);
+
+        /* menengahkan tulisan */
+        align-items: center;
+
+        /* kemudian supaya ada di tengah vertikal alignnya, maka ditimpa jadi space-evenly karena di atas sudah di definisikan jadi space between */
+        justify-content: space-evenly;   
+
+        z-index: -1;  /* supaya berada dibawah navbar atas */
+
+        transform: translateX(100%); /* supaya ngumpet ke kanan */
+
+        transform: all 1s;
+    }
+
+
+    /* kondisi jika terkena class slide */
+    nav ul.slide {
+        transform: translateX(0);
+    }
+}
+
+
+
