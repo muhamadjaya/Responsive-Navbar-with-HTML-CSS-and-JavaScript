@@ -162,7 +162,7 @@ nav ul li a:hover {
 
         transform: translateX(100%); /* supaya ngumpet ke kanan */
 
-        transform: all 1s;
+        transition: all 1s;
     }
 
 
